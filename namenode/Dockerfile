@@ -60,7 +60,7 @@ RUN mkdir /home/hduser/hdfs/namenode
 # environment variables
 RUN echo "PATH=$PATH:$JAVA_HOME/bin" >> ~/.bashrc
 RUN echo "PATH=$PATH:$HADOOP_HOME/bin" >> ~/.bashrc
-RUN echo "PATH=$PATH:$JAVA_HOME/sbin" >> ~/.bashrc
+RUN echo "PATH=$PATH:$HADOOP_HOME/sbin" >> ~/.bashrc
 
 # Copy config files
 ADD ./config-files/hadoop-env.sh $HADOOP_HOME/etc/hadoop/
