@@ -14,3 +14,6 @@ hdfs namenode -format
 
 # Initialize the namenode
 hdfs --daemon start namenode
+
+# Se precisar parar o serviço:
+hdfs --daemon stop namenode
