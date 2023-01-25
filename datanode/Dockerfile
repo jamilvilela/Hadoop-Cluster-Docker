@@ -1,11 +1,9 @@
-# Arquivo de Configuração do DataNode no Cluster HDFS
-# Data Science Academy
+## DataNode Hadoop configuration file
 
-# O sistema operacional será o Ubuntu na versão mais atual
-# https://hub.docker.com/_/ubuntu
+# Operational system
 FROM ubuntu:latest
 
-# Updates e instalações
+# Update
 RUN \
   apt-get update && apt-get install -y \
   openssh-server \
@@ -18,52 +16,51 @@ RUN \
   vim \
   && apt-get clean
 
-# Cria usuário para a instalação do Hadoop
+# User creation for hadoop install
 RUN useradd -m hduser && echo "hduser:supergroup" | chpasswd && adduser hduser sudo && echo "hduser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && cd /usr/bin/ && sudo ln -s python3 python
 
-# Copia o arquivo de configuração do ssh
+# To copy ssh config file
 ADD ./config-files/ssh_config /etc/ssh/ssh_config
 
-# Muda o usuário
+# changes the user
 USER hduser
 
-# Pasta de trabalho
 WORKDIR /home/hduser
 
-# Usuário de trabalho
+# Work user
 ENV HDFS_NAMENODE_USER=hduser
 ENV HDFS_DATANODE_USER=hduser
 ENV HDFS_SECONDARYNAMENODE_USER=hduser
 ENV YARN_RESOURCEMANAGER_USER=hduser
 ENV YARN_NODEMANAGER_USER=hduser
 
-# Copia os binários do JDK
+# copy the binaries of the JDK
 ADD ./binarios/jdk ./jdk
 
-# Variáveis de ambiente JDK
+# JDK environment variables
 ENV JAVA_HOME=/home/hduser/jdk
 ENV PATH=$PATH:$JAVA_HOME:$JAVA_HOME/bin
 
-# Copia os binários do Hadoop
+# copy Hadoop binaries
 ADD ./binarios/hadoop ./hadoop
 
-# Variáveis de ambiente do Hadoop
+# Hadoop environment variables
 ENV HADOOP_HOME=/home/hduser/hadoop
 ENV PATH=$PATH:$HADOOP_HOME
 ENV PATH=$PATH:$HADOOP_HOME/bin
 ENV PATH=$PATH:$HADOOP_HOME/sbin
 
-# Pastas para os arquivos do DataNode
+# Directory for the DataNode files
 RUN mkdir /home/hduser/hdfs
 RUN mkdir /home/hduser/hdfs/datanode
 
-# Copia os arquivos de configuração
+# Copy config files
 ADD ./config-files/hadoop-env.sh $HADOOP_HOME/etc/hadoop/
 ADD ./config-files/core-site.xml $HADOOP_HOME/etc/hadoop/
 ADD ./config-files/hdfs-site.xml $HADOOP_HOME/etc/hadoop/
 ADD ./config-files/workers $HADOOP_HOME/etc/hadoop/
 
-# Portas que poderão ser usadas
+# Port to be used
 EXPOSE 22
 
 

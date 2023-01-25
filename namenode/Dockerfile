@@ -1,9 +1,9 @@
-## NameNome Hadoop configuration file
+## NameNode Hadoop configuration file
 
 # Operational system
 FROM ubuntu:latest
 
-# Updates
+# Update
 RUN \
   apt-get update && apt-get install -y \
   openssh-server \
