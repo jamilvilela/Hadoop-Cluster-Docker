@@ -35,14 +35,14 @@ ENV YARN_RESOURCEMANAGER_USER=hduser
 ENV YARN_NODEMANAGER_USER=hduser
 
 # copy the binaries of the JDK
-ADD ./binarios/jdk ./jdk
+ADD ./binary/jdk ./jdk
 
 # JDK environment variables
 ENV JAVA_HOME=/home/hduser/jdk
 ENV PATH=$PATH:$JAVA_HOME:$JAVA_HOME/bin
 
 # copy Hadoop binaries
-ADD ./binarios/hadoop ./hadoop
+ADD ./binary/hadoop ./hadoop
 
 # Hadoop environment variables
 ENV HADOOP_HOME=/home/hduser/hadoop
